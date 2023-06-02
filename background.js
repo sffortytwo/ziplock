@@ -14,12 +14,10 @@ function interceptRequest(requestDetails) {
   }
 
   if (blocked) {
-    browser.notifications.create({
-      "type": "basic",
-      // "iconUrl": browser.extension.getURL("icon.png"), // optional, provide an icon for the notification
-      "title": "Request Blocked",
-      "message": "This url is a potential phishing attack"
+    browser.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      browser.tabs.sendMessage(tabs[0].id, {action: 'blocked', url: url});
     });
+
     return { cancel: true };
   }
 }
