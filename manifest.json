@@ -13,12 +13,6 @@
   "background": {"page": "lib/chrome/background.html"},
 
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.zip/*"],
-      "js": ["borderify.js"]
-    }
-  ],
 
   "permissions": [
     "storage",
