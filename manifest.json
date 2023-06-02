@@ -1,0 +1,31 @@
+{
+
+  "manifest_version": 2,
+  "name": "Borderify",
+  "version": "1.0",
+
+  "description": "Adds a red border to all webpages matching mozilla.org  .",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "background": {"page": "lib/chrome/background.html"},
+
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.zip/*"],
+      "js": ["borderify.js"]
+    }
+  ],
+
+  "permissions": [
+    "storage",
+    "*://*/*",
+    "webRequest",
+    "contextMenus",
+    "notifications",
+    "webRequestBlocking"
+  ]
+}
