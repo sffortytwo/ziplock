@@ -1,13 +1,15 @@
 function interceptRequest(requestDetails) {
   var blocked = false;
-  //  If this is a .zip TLD
-  if (requestDetails.url.indexOf(".zip") != -1 && requestDetails.url.indexOf("@") != -1) {
-    console.log(requestDetails.url);
-    if (requestDetails.url.indexOf("⁄") != -1) { blocked = true; }
-    if (requestDetails.url.indexOf("∕") != -1) { blocked = true; }
-    if (requestDetails.url.indexOf("／") != -1) { blocked = true; }
-    if (requestDetails.url.indexOf("⧸") != -1) { blocked = true; }
-    if (requestDetails.url.indexOf("⫽") != -1) { blocked = true; }
+  let url = decodeURI(requestDetails.url);
+
+  //  If this is a .zip TLD and contains an @ symbol
+  if (url.indexOf(".zip") != -1 && url.indexOf("@") != -1) {
+    // If any of the fake forward slash characters are present, block the request
+    if (url.indexOf("⁄") != -1) { blocked = true; }
+    if (url.indexOf("∕") != -1) { blocked = true; }
+    if (url.indexOf("／") != -1) { blocked = true; }
+    if (url.indexOf("⧸") != -1) { blocked = true; }
+    if (url.indexOf("⫽") != -1) { blocked = true; }
     console.log(`Blocked: ${blocked}`);
   }
 
@@ -16,7 +18,7 @@ function interceptRequest(requestDetails) {
       "type": "basic",
       // "iconUrl": browser.extension.getURL("icon.png"), // optional, provide an icon for the notification
       "title": "Request Blocked",
-      "message": "The request to this URL has been blocked: " + requestDetails.url
+      "message": "This url is a potential phishing attack"
     });
     return { cancel: true };
   }
